@@ -1,14 +1,26 @@
 <?php declare(strict_types=1);
 
 namespace App\Http\Controller;
-
+/*
+<<<<<<< HEAD
 use App\Exception\DevException;
+=======
+use const E_USER_ERROR;
+use ReflectionException;
+use RuntimeException;
+use Swoft;
+use Swoft\Bean\Exception\ContainerException;
+>>>>>>> c7f3dda5c472d2fac818c2436ae0b97af0ba67bf
+
+*/
 use Swoft\Context\Context;
 use Swoft\Http\Message\ContentType;
 use Swoft\Http\Message\Response;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\View\Renderer;
+use Throwable;
+use function trigger_error;
 
 /**
  * Class HomeController
@@ -18,12 +30,12 @@ class HomeController
 {
     /**
      * @RequestMapping("/")
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function index(): Response
     {
         /** @var Renderer $renderer */
-        $renderer = \Swoft::getBean('view');
+        $renderer = Swoft::getBean('view');
         $content  = $renderer->render('home/index');
 
         return Context::mustGet()
@@ -36,8 +48,8 @@ class HomeController
      * @RequestMapping("/hello[/{name}]")
      * @param string $name
      * @return Response
-     * @throws \ReflectionException
-     * @throws \Swoft\Bean\Exception\ContainerException
+     * @throws ReflectionException
+     * @throws ContainerException
      */
     public function hello(string $name): Response
     {
@@ -48,19 +60,20 @@ class HomeController
 
     /**
      * @RequestMapping("/ex")
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function ex(): void
     {
-        throw new \RuntimeException('exception throw on ' . __METHOD__);
+        throw new RuntimeException('exception throw on ' . __METHOD__);
     }
 
     /**
      * @RequestMapping("/er")
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function er(): void
     {
+<<<<<<< HEAD
         \trigger_error('user error222', \E_USER_ERROR);
     }
 
@@ -86,5 +99,8 @@ class HomeController
         $content  = $renderer->render('home/index');
 
         return viewHtml($content);
+=======
+        trigger_error('user error', E_USER_ERROR);
+>>>>>>> c7f3dda5c472d2fac818c2436ae0b97af0ba67bf
     }
 }

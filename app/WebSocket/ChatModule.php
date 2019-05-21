@@ -7,6 +7,7 @@ use Swoft\Http\Message\Request;
 use Swoft\WebSocket\Server\Annotation\Mapping\OnOpen;
 use Swoft\WebSocket\Server\Annotation\Mapping\WsModule;
 use Swoft\WebSocket\Server\MessageParser\TokenTextParser;
+use function server;
 
 /**
  * Class ChatModule
@@ -26,6 +27,6 @@ class ChatModule
      */
     public function onOpen(Request $request, int $fd): void
     {
-        \server()->push($request->getFd(), "Opened, welcome!(FD: $fd)");
+        server()->push($request->getFd(), "Opened, welcome!(FD: $fd)");
     }
 }

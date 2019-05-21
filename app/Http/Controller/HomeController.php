@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Exception\DevException;
 use Swoft\Context\Context;
 use Swoft\Http\Message\ContentType;
 use Swoft\Http\Message\Response;
@@ -60,6 +61,30 @@ class HomeController
      */
     public function er(): void
     {
-        \trigger_error('user error', \E_USER_ERROR);
+        \trigger_error('user error222', \E_USER_ERROR);
+    }
+
+    /**
+     * @RequestMapping("/error_dev")
+     * @throws \Throwable
+     */
+    public function error_dev(): void
+    {
+        throw new DevException('exception throw on devException' . __METHOD__);
+    }
+
+    /**
+     * @RequestMapping(route="/view")
+     * @return Response
+     * @throws \Throwable
+     */
+    public function view(): Response
+    {
+
+        /** @var Renderer $renderer */
+        $renderer = \Swoft::getBean('view');
+        $content  = $renderer->render('home/index');
+
+        return viewHtml($content);
     }
 }
